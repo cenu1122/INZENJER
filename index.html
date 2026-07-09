@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bs">
+<html lang="en">
 
 <head>
 
@@ -8,12 +8,15 @@
 
 <title>INDEC Engineering</title>
 
-
 <style>
+
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
-    font-family:Arial, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     background:#f4f6f8;
     color:#333;
 }
@@ -21,17 +24,24 @@ body{
 
 header{
 
-    background:#1f4e79;
+    background:#123b5d;
     color:white;
-    padding:30px;
+    padding:35px;
     text-align:center;
 
 }
 
 
+header h1{
+    font-size:45px;
+    margin:0;
+}
+
+
+
 nav{
 
-    background:#163a5c;
+    background:#0b263d;
     padding:15px;
     text-align:center;
 
@@ -49,11 +59,40 @@ nav a{
 
 
 
+.lang{
+
+    text-align:center;
+    padding:15px;
+    background:white;
+
+}
+
+
+button{
+
+    padding:10px 15px;
+    margin:5px;
+    border:none;
+    background:#123b5d;
+    color:white;
+    cursor:pointer;
+    border-radius:5px;
+
+}
+
+
+button:hover{
+
+    background:#1d6fa5;
+
+}
+
+
+
 .container{
 
-    max-width:1100px;
+    max-width:1200px;
     margin:auto;
-    background:white;
     padding:30px;
 
 }
@@ -62,26 +101,29 @@ nav a{
 
 .hero{
 
+    background:white;
+    padding:60px 30px;
     text-align:center;
-    padding:50px 20px;
 
 }
 
 
-.hero h1{
 
-    font-size:40px;
-    color:#1f4e79;
+.hero h2{
+
+    color:#123b5d;
+    font-size:35px;
 
 }
 
 
-.button{
+
+.btn{
 
     display:inline-block;
-    background:#1f4e79;
-    color:white;
     padding:15px 25px;
+    background:#123b5d;
+    color:white;
     text-decoration:none;
     border-radius:5px;
     margin-top:20px;
@@ -89,17 +131,12 @@ nav a{
 }
 
 
-.button:hover{
-
-    background:#163a5c;
-
-}
-
-
 
 section{
 
-    margin:40px 0;
+    background:white;
+    margin:30px 0;
+    padding:30px;
 
 }
 
@@ -107,8 +144,8 @@ section{
 
 h2{
 
-    color:#1f4e79;
-    border-bottom:2px solid #1f4e79;
+    color:#123b5d;
+    border-bottom:3px solid #123b5d;
     padding-bottom:10px;
 
 }
@@ -118,19 +155,31 @@ h2{
 .cards{
 
     display:flex;
-    gap:20px;
     flex-wrap:wrap;
+    gap:20px;
 
 }
+
 
 
 .card{
 
     flex:1;
     min-width:250px;
-    background:#f1f1f1;
+    background:#f0f3f5;
     padding:20px;
-    border-left:5px solid #1f4e79;
+    border-left:5px solid #123b5d;
+
+}
+
+
+
+.review{
+
+    background:#eef6fb;
+    padding:20px;
+    margin:15px 0;
+    border-radius:5px;
 
 }
 
@@ -138,20 +187,13 @@ h2{
 
 footer{
 
-    background:#1f4e79;
+    background:#123b5d;
     color:white;
     text-align:center;
     padding:20px;
 
 }
 
-
-.contact{
-
-    background:#eaf2f8;
-    padding:20px;
-
-}
 
 
 </style>
@@ -167,28 +209,46 @@ footer{
 
 <header>
 
-<h1>INDEC Engineering</h1>
+<h1 id="company">
+INDEC Engineering
+</h1>
 
-<p>
-Projektovanje i izrada industrijskih rješenja
+
+<p id="subtitle">
+Engineering solutions from idea to final product
 </p>
+
 
 </header>
 
 
 
+
+<div class="lang">
+
+<button onclick="changeLanguage('en')">🇬🇧 English</button>
+<button onclick="changeLanguage('bs')">🇧🇦 Bosnian</button>
+<button onclick="changeLanguage('de')">🇩🇪 Deutsch</button>
+<button onclick="changeLanguage('fr')">🇫🇷 Français</button>
+<button onclick="changeLanguage('es')">🇪🇸 Español</button>
+
+</div>
+
+
+
+
 <nav>
 
-<a href="#about">O nama</a>
-
-<a href="#why">Zašto mi</a>
-
-<a href="#services">Usluge</a>
-
-<a href="#contact">Kontakt</a>
+<a href="#about" id="nav1">About Us</a>
+<a href="#why" id="nav2">Why Us</a>
+<a href="#services" id="nav3">Services</a>
+<a href="#projects" id="nav4">Projects</a>
+<a href="#reviews" id="nav5">Reviews</a>
+<a href="#contact" id="nav6">Contact</a>
 
 
 </nav>
+
 
 
 
@@ -199,23 +259,22 @@ Projektovanje i izrada industrijskih rješenja
 
 <div class="hero">
 
-<h1>
-Inženjerska rješenja od ideje do gotovog proizvoda
-</h1>
+<h2 id="heroTitle">
+Designing and manufacturing complete industrial solutions
+</h2>
 
 
-<p>
+<p id="heroText">
 
-Bavimo se projektovanjem konstrukcija,
-mašina i industrijskih sistema.
+Professional mechanical engineering,
+machine design and production.
 
 </p>
 
 
+<a class="btn" href="greda.html" id="projectBtn">
 
-<a class="button" href="greda.html">
-
-Statički proračun čelične grede
+View Steel Beam Eurocode 3 Project
 
 </a>
 
@@ -226,31 +285,28 @@ Statički proračun čelične grede
 
 
 
+
+
 <section id="about">
 
-
-<h2>O nama</h2>
-
-
-<p>
-
-INDEC Engineering je inženjerska kompanija koja se bavi
-razvojem, projektovanjem i izradom tehničkih rješenja
-za različite industrijske potrebe.
-
-</p>
+<h2 id="aboutTitle">
+About Us
+</h2>
 
 
-<p>
+<p id="aboutText">
 
-Naš cilj je spojiti savremene metode projektovanja,
-preciznu izradu i praktična rješenja koja odgovaraju
-zahtjevima klijenata.
+INDEC Engineering is a company specialized in
+mechanical engineering, machine design,
+industrial solutions and technical development.
+
+We provide complete solutions from concept,
+design and calculation to manufacturing.
 
 </p>
-
 
 </section>
+
 
 
 
@@ -259,61 +315,42 @@ zahtjevima klijenata.
 
 <section id="why">
 
-
-<h2>Zašto mi?</h2>
+<h2 id="whyTitle">
+Why Choose Us
+</h2>
 
 
 <div class="cards">
 
 
 <div class="card">
-
-<h3>Stručnost</h3>
-
+<h3>Expertise</h3>
 <p>
-
-Primjenjujemo savremene metode proračuna,
-modeliranja i projektovanja.
-
+Professional engineering approach and modern design methods.
 </p>
-
 </div>
-
 
 
 <div class="card">
-
-<h3>Kvalitet</h3>
-
+<h3>Quality</h3>
 <p>
-
-Svaki projekat prolazi kroz kontrolu
-kvaliteta i tehničku provjeru.
-
+Reliable solutions with focus on precision and durability.
 </p>
-
 </div>
-
 
 
 <div class="card">
-
-<h3>Kompletno rješenje</h3>
-
+<h3>Complete Solutions</h3>
 <p>
-
-Od idejnog rješenja do gotove mašine
-ili konstrukcije.
-
+From idea to finished machine or industrial system.
 </p>
-
 </div>
 
 
 </div>
-
 
 </section>
+
 
 
 
@@ -323,73 +360,125 @@ ili konstrukcije.
 
 <section id="services">
 
-
-<h2>Naše usluge</h2>
-
+<h2 id="servicesTitle">
+Our Services
+</h2>
 
 
 <div class="cards">
 
 
+<div class="card">
+<h3>Machine Design</h3>
+<p>
+Design and development of machines and mechanical systems.
+</p>
+</div>
+
 
 <div class="card">
-
-<h3>Projektovanje</h3>
-
-
+<h3>Machine Manufacturing</h3>
 <p>
-
-Projektovanje mašina, konstrukcija,
-sklopova i industrijskih sistema.
-
+Production of complete machines and industrial equipment.
 </p>
+</div>
+
+
+<div class="card">
+<h3>Engineering Calculations</h3>
+<p>
+Structural calculations and technical documentation.
+</p>
+</div>
 
 
 </div>
 
 
+</section>
 
 
-<div class="card">
 
-<h3>Izrada kompletnih mašina i strojeva</h3>
+
+
+
+
+
+<section id="projects">
+
+<h2>
+Projects
+</h2>
 
 
 <p>
 
-Razvoj i izrada mašina od početne ideje,
-preko konstrukcije, do finalnog proizvoda.
+Example project:
 
 </p>
 
+
+<a class="btn" href="greda.html">
+
+Steel Beam Static Calculation - Eurocode 3
+
+</a>
+
+
+</section>
+
+
+
+
+
+
+
+
+<section id="reviews">
+
+<h2>
+References & Reviews
+</h2>
+
+
+<div class="review">
+
+★★★★★
+
+<br>
+
+"Professional approach, quality work and excellent communication."
+
+</div>
+
+
+<div class="review">
+
+★★★★★
+
+<br>
+
+"Complete engineering solution from idea to final product."
 
 </div>
 
 
 
+<div class="review">
 
-<div class="card">
+★★★★★
 
-<h3>Statički proračuni</h3>
+<br>
 
-
-<p>
-
-Proračuni čeličnih konstrukcija prema
-Eurocode standardima.
-
-</p>
-
-
-</div>
-
-
+"Reliable partner for machine design and manufacturing."
 
 </div>
 
 
 
 </section>
+
+
 
 
 
@@ -398,16 +487,9 @@ Eurocode standardima.
 
 <section id="contact">
 
-
-<h2>Kontakt</h2>
-
-
-<div class="contact">
-
-
-<p>
-<b>INDEC Engineering</b>
-</p>
+<h2>
+Contact
+</h2>
 
 
 <p>
@@ -416,17 +498,13 @@ Email: info@indec-engineering.com
 
 
 <p>
-Telefon: +387 XX XXX XXX
+Phone: +387 XX XXX XXX
 </p>
 
 
 <p>
-Bosna i Hercegovina
+Bosnia and Herzegovina
 </p>
-
-
-
-</div>
 
 
 </section>
@@ -440,14 +518,97 @@ Bosna i Hercegovina
 
 
 
+
 <footer>
 
-<p>
-© 2026 INDEC Engineering - Sva prava zadržana
-</p>
+INDEC Engineering © 2026
 
 </footer>
 
+
+
+
+
+
+
+<script>
+
+
+function changeLanguage(lang){
+
+
+if(lang=="en"){
+
+location.reload();
+
+}
+
+
+
+if(lang=="bs"){
+
+company.innerHTML="INDEC Inženjering";
+subtitle.innerHTML="Inženjerska rješenja od ideje do gotovog proizvoda";
+
+aboutTitle.innerHTML="O nama";
+whyTitle.innerHTML="Zašto mi";
+servicesTitle.innerHTML="Naše usluge";
+
+nav1.innerHTML="O nama";
+nav2.innerHTML="Zašto mi";
+nav3.innerHTML="Usluge";
+nav4.innerHTML="Projekti";
+nav5.innerHTML="Recenzije";
+nav6.innerHTML="Kontakt";
+
+projectBtn.innerHTML="Pogledaj projekat čelične grede";
+
+
+}
+
+
+if(lang=="de"){
+
+company.innerHTML="INDEC Engineering";
+subtitle.innerHTML="Ingenieurlösungen von der Idee bis zum Endprodukt";
+
+aboutTitle.innerHTML="Über uns";
+whyTitle.innerHTML="Warum wir";
+servicesTitle.innerHTML="Unsere Dienstleistungen";
+
+}
+
+
+if(lang=="fr"){
+
+company.innerHTML="INDEC Engineering";
+subtitle.innerHTML="Solutions d'ingénierie de l'idée au produit final";
+
+aboutTitle.innerHTML="À propos de nous";
+whyTitle.innerHTML="Pourquoi nous";
+servicesTitle.innerHTML="Nos services";
+
+}
+
+
+
+if(lang=="es"){
+
+company.innerHTML="INDEC Engineering";
+subtitle.innerHTML="Soluciones de ingeniería desde la idea hasta el producto final";
+
+aboutTitle.innerHTML="Sobre nosotros";
+whyTitle.innerHTML="Por qué nosotros";
+servicesTitle.innerHTML="Nuestros servicios";
+
+}
+
+
+}
+
+
+
+</script>
 
 
 
