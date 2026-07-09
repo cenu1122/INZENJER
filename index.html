@@ -210,14 +210,12 @@ footer{
 <header>
 
 <h1 id="company">
-INDEC Engineering
+NH AI Automation
 </h1>
 
-
 <p id="subtitle">
-Engineering solutions from idea to final product
+AI automation, engineering solutions and industrial innovation
 </p>
-
 
 </header>
 
@@ -227,7 +225,7 @@ Engineering solutions from idea to final product
 <div class="lang">
 
 <button onclick="changeLanguage('en')">🇬🇧 English</button>
-<button onclick="changeLanguage('bs')">🇧🇦 Bosnian</button>
+<button onclick="changeLanguage('bs')">🇧🇦 Bosanski</button>
 <button onclick="changeLanguage('de')">🇩🇪 Deutsch</button>
 <button onclick="changeLanguage('fr')">🇫🇷 Français</button>
 <button onclick="changeLanguage('es')">🇪🇸 Español</button>
@@ -294,11 +292,11 @@ About Us
 </h2>
 
 
-<p id="aboutText">
+<p id="ab<p id="aboutText">
 
-INDEC Engineering is a company specialized in
-mechanical engineering, machine design,
-industrial solutions and technical development.
+NH AI Automation is a company specialized in
+AI automation, mechanical engineering,
+machine design, industrial solutions and technical development.
 
 We provide complete solutions from concept,
 design and calculation to manufacturing.
@@ -521,8 +519,8 @@ Bosnia and Herzegovina
 
 <footer>
 
-INDEC Engineering © 2026
-
+NH AI Automation © 2026
+    
 </footer>
 
 
@@ -536,78 +534,110 @@ INDEC Engineering © 2026
 
 function changeLanguage(lang){
 
+const text = {
 
-if(lang=="en"){
+en:{
+company:"NH AI Automation",
+subtitle:"AI automation, engineering solutions and industrial innovation",
+about:"About Us",
+why:"Why Choose Us",
+services:"Our Services",
+projects:"Projects",
+reviews:"References & Reviews",
+contact:"Contact",
+project:"View Steel Beam Eurocode 3 Project"
+},
 
-location.reload();
+bs:{
+company:"NH AI Automation",
+subtitle:"AI automatizacija, inženjerska rješenja i industrijske inovacije",
+about:"O nama",
+why:"Zašto mi",
+services:"Naše usluge",
+projects:"Projekti",
+reviews:"Reference i recenzije",
+contact:"Kontakt",
+project:"Pogledaj projekat čelične grede"
+},
+
+de:{
+company:"NH AI Automation",
+subtitle:"KI-Automatisierung, Ingenieurlösungen und industrielle Innovation",
+about:"Über uns",
+why:"Warum wir",
+services:"Unsere Dienstleistungen",
+projects:"Projekte",
+reviews:"Referenzen und Bewertungen",
+contact:"Kontakt",
+project:"Stahlträger Eurocode 3 Projekt ansehen"
+},
+
+fr:{
+company:"NH AI Automation",
+subtitle:"Automatisation IA, solutions d'ingénierie et innovation industrielle",
+about:"À propos de nous",
+why:"Pourquoi nous",
+services:"Nos services",
+projects:"Projets",
+reviews:"Références et avis",
+contact:"Contact",
+project:"Voir le projet de poutre en acier Eurocode 3"
+},
+
+es:{
+company:"NH AI Automation",
+subtitle:"Automatización IA, soluciones de ingeniería e innovación industrial",
+about:"Sobre nosotros",
+why:"Por qué nosotros",
+services:"Nuestros servicios",
+projects:"Proyectos",
+reviews:"Referencias y opiniones",
+contact:"Contacto",
+project:"Ver proyecto de viga de acero Eurocode 3"
+}
+
+};
+
+
+document.getElementById("company").innerHTML=text[lang].company;
+document.getElementById("subtitle").innerHTML=text[lang].subtitle;
+
+document.getElementById("aboutTitle").innerHTML=text[lang].about;
+document.getElementById("whyTitle").innerHTML=text[lang].why;
+document.getElementById("servicesTitle").innerHTML=text[lang].services;
+
+document.getElementById("nav4").innerHTML=text[lang].projects;
+document.getElementById("nav5").innerHTML=text[lang].reviews;
+document.getElementById("nav6").innerHTML=text[lang].contact;
+
+document.getElementById("projectBtn").innerHTML=text[lang].project;
+    document.getElementById("heroTitle").innerHTML =
+{
+en:"Designing and manufacturing complete industrial solutions",
+bs:"Projektovanje i izrada kompletnih industrijskih rješenja",
+de:"Entwicklung und Herstellung kompletter industrieller Lösungen",
+fr:"Conception et fabrication de solutions industrielles complètes",
+es:"Diseño y fabricación de soluciones industriales completas"
+}[lang];
+
+
+document.getElementById("heroText").innerHTML =
+{
+en:"Professional mechanical engineering, AI automation, machine design and production.",
+bs:"Profesionalno mašinsko inženjerstvo, AI automatizacija, projektovanje i proizvodnja.",
+de:"Professioneller Maschinenbau, KI-Automatisierung, Konstruktion und Fertigung.",
+fr:"Ingénierie mécanique professionnelle, automatisation IA, conception et production.",
+es:"Ingeniería mecánica profesional, automatización IA, diseño y producción."
+}[lang];
+    
 
 }
 
 
-
-if(lang=="bs"){
-
-company.innerHTML="INDEC Inženjering";
-subtitle.innerHTML="Inženjerska rješenja od ideje do gotovog proizvoda";
-
-aboutTitle.innerHTML="O nama";
-whyTitle.innerHTML="Zašto mi";
-servicesTitle.innerHTML="Naše usluge";
-
-nav1.innerHTML="O nama";
-nav2.innerHTML="Zašto mi";
-nav3.innerHTML="Usluge";
-nav4.innerHTML="Projekti";
-nav5.innerHTML="Recenzije";
-nav6.innerHTML="Kontakt";
-
-projectBtn.innerHTML="Pogledaj projekat čelične grede";
-
-
-}
-
-
-if(lang=="de"){
-
-company.innerHTML="INDEC Engineering";
-subtitle.innerHTML="Ingenieurlösungen von der Idee bis zum Endprodukt";
-
-aboutTitle.innerHTML="Über uns";
-whyTitle.innerHTML="Warum wir";
-servicesTitle.innerHTML="Unsere Dienstleistungen";
-
-}
-
-
-if(lang=="fr"){
-
-company.innerHTML="INDEC Engineering";
-subtitle.innerHTML="Solutions d'ingénierie de l'idée au produit final";
-
-aboutTitle.innerHTML="À propos de nous";
-whyTitle.innerHTML="Pourquoi nous";
-servicesTitle.innerHTML="Nos services";
-
-}
-
-
-
-if(lang=="es"){
-
-company.innerHTML="INDEC Engineering";
-subtitle.innerHTML="Soluciones de ingeniería desde la idea hasta el producto final";
-
-aboutTitle.innerHTML="Sobre nosotros";
-whyTitle.innerHTML="Por qué nosotros";
-servicesTitle.innerHTML="Nuestros servicios";
-
-}
-
-
-}
-
-
-
+window.onload = function(){
+    changeLanguage("en");
+};
+    
 </script>
 
 
