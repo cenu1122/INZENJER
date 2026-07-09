@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Steel Beam Eurocode 3 Calculation</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f2f4f7;
+    margin:0;
+    color:#333;
+}
+
+header{
+    background:#1f4e79;
+    color:white;
+    padding:25px;
+    text-align:center;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:white;
+    padding:30px;
+}
+
+button{
+    padding:10px 15px;
+    margin:5px;
+    cursor:pointer;
+    border:none;
+    background:#1f4e79;
+    color:white;
+    border-radius:5px;
+}
+
+button:hover{
+    background:#163a5c;
+}
+
+
+.box{
+    border-left:5px solid #1f4e79;
+    background:#f5f5f5;
+    padding:15px;
+    margin:20px 0;
+}
+
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+}
+
+th,td{
+    border:1px solid #999;
+    padding:10px;
+    text-align:center;
+}
+
+th{
+    background:#dbe7f3;
+}
+
+
+.result{
+    background:#e6ffe6;
+    border:2px solid green;
+    padding:20px;
+}
+
+
+.greda{
+    width:600px;
+    max-width:100%;
+    cursor:zoom-in;
+    border:3px solid #1f4e79;
+}
+
+
+#zoom{
+    display:none;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.85);
+    justify-content:center;
+    align-items:center;
+}
+
+
+#zoom img{
+    max-width:90%;
+    max-height:90%;
+}
+
+
+.close{
+    position:absolute;
+    right:40px;
+    top:20px;
+    color:white;
+    font-size:50px;
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1 id="title">
+STATIČKI PRORAČUN ČELIČNE GREDE
+</h1>
+
+<div>
+
+<button onclick="lang('bs')">🇧🇦 BS</button>
+<button onclick="lang('en')">🇬🇧 EN</button>
+<button onclick="lang('de')">🇩🇪 DE</button>
+<button onclick="lang('fr')">🇫🇷 FR</button>
+<button onclick="lang('es')">🇪🇸 ES</button>
+
+</div>
+
+</header>
+
+
+
+<div class="container">
+
+
+<div class="box">
+
+<h2 id="data">
+Podaci grede
+</h2>
+
+<p>
+L = 6.0 m<br>
+Profil: IPE 180<br>
+Čelik: S235<br>
+Standard: Eurocode 3
+</p>
+
+</div>
+
+
+
+<h2 id="load">
+Opterećenja prema Eurokodu
+</h2>
+
+
+<table>
+
+<tr>
+<th>Opterećenje</th>
+<th>Oznaka</th>
+<th>Vrijednost</th>
+</tr>
+
+<tr>
+<td>Vlastita težina</td>
+<td>G1</td>
+<td>0.30 kN/m²</td>
+</tr>
+
+<tr>
+<td>Krovni slojevi</td>
+<td>G2</td>
+<td>0.50 kN/m²</td>
+</tr>
+
+<tr>
+<td>Snijeg</td>
+<td>S</td>
+<td>1.50 kN/m²</td>
+</tr>
+
+<tr>
+<td>Vjetar</td>
+<td>W</td>
+<td>0.50 kN/m²</td>
+</tr>
+
+</table>
+
+
+
+<h2>ULS kombinacija EN 1990</h2>
+
+<p>
+
+G = 0.30 + 0.50 = 0.80 kN/m²
+
+<br><br>
+
+qEd = 1.35 × G + 1.50 × S
+
+<br><br>
+
+qEd = 1.35 × 0.80 + 1.50 × 1.50
+
+<br><br>
+
+qEd = 3.33 kN/m²
+
+</p>
+
+
+<h2>Proračun grede</h2>
+
+
+<p>
+
+Linijsko opterećenje:
+
+<br>
+
+q = 3.33 × 3.0
+
+<br>
+
+q = 10 kN/m
+
+</p>
+
+
+
+<p>
+
+Moment savijanja:
+
+<br><br>
+
+MEd = q × L² / 8
+
+<br><br>
+
+MEd = 10 × 6² / 8
+
+<br><br>
+
+MEd = 45 kNm
+
+</p>
+
+
+
+
+<h2>Izbor presjeka</h2>
+
+
+<table>
+
+<tr>
+<th>Profil</th>
+<th>Wpl,y</th>
+</tr>
+
+
+<tr>
+<td>IPE 180</td>
+<td>206 cm³</td>
+</tr>
+
+
+<tr>
+<td>IPE 200</td>
+<td>285 cm³</td>
+</tr>
+
+
+<tr>
+<td>IPE 220</td>
+<td>364 cm³</td>
+</tr>
+
+
+</table>
+
+
+
+
+<h2>Eurocode 3 provjera</h2>
+
+
+<p>
+
+MRd = Wpl × fy / γM0
+
+<br><br>
+
+MRd = 206 × 10³ × 235 / 1.0
+
+<br><br>
+
+MRd = 48.4 kNm
+
+</p>
+
+
+
+<div class="result">
+
+<b>
+Rezultat:
+</b>
+
+<br><br>
+
+MEd = 45.0 kNm
+
+<br>
+
+MRd = 48.4 kNm
+
+<br><br>
+
+✅ IPE 180 zadovoljava prema EN 1993-1-1
+
+</div>
+
+
+
+
+<h2>
+Tehnički prikaz grede
+</h2>
+
+
+<img src="greda.jpg"
+class="greda"
+onclick="zoom(this)">
+
+
+
+</div>
+
+
+
+<div id="zoom" onclick="closeZoom()">
+
+<span class="close">
+×
+</span>
+
+<img id="big">
+
+</div>
+
+
+
+<script>
+
+
+function zoom(img){
+
+document.getElementById("zoom").style.display="flex";
+
+document.getElementById("big").src=img.src;
+
+}
+
+
+function closeZoom(){
+
+document.getElementById("zoom").style.display="none";
+
+}
+
+
+
+function lang(x){
+
+if(x=="en"){
+title.innerHTML="STEEL BEAM STATIC CALCULATION";
+data.innerHTML="Beam Data";
+load.innerHTML="Eurocode Loads";
+}
+
+if(x=="de"){
+title.innerHTML="STATISCHE BERECHNUNG EINES STAHLTRÄGERS";
+data.innerHTML="Trägerdaten";
+load.innerHTML="Lasten nach Eurocode";
+}
+
+
+if(x=="fr"){
+title.innerHTML="CALCUL STATIQUE D'UNE POUTRE EN ACIER";
+data.innerHTML="Données de la poutre";
+load.innerHTML="Charges selon Eurocode";
+}
+
+
+if(x=="es"){
+title.innerHTML="CÁLCULO ESTÁTICO DE VIGA DE ACERO";
+data.innerHTML="Datos de la viga";
+load.innerHTML="Cargas según Eurocódigo";
+}
+
+
+if(x=="bs"){
+title.innerHTML="STATIČKI PRORAČUN ČELIČNE GREDE";
+data.innerHTML="Podaci grede";
+load.innerHTML="Opterećenja prema Eurokodu";
+}
+
+}
+
+
+</script>
+
+
+</body>
+</html>
