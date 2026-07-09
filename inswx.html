@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statički proračun čelične grede</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        h1, h2 {
+            color: #1f4e79;
+        }
+
+        .box {
+            background: #f5f5f5;
+            padding: 15px;
+            border-left: 5px solid #1f4e79;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table, th, td {
+            border: 1px solid #999;
+        }
+
+        th {
+            background: #e8eef5;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .result {
+            background: #eaf7ea;
+            border: 1px solid #4caf50;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h1>STATIČKI PRORAČUN ČELIČNE GREDE</h1>
+
+<div class="box">
+    <strong>Podaci:</strong><br>
+    Raspon grede: L = 6.0 m<br>
+    Opterećenje: q = 10 kN/m<br>
+    Materijal: Čelik S235
+</div>
+
+<h2>1. Maksimalni moment savijanja</h2>
+
+<p>
+M = q × L² / 8
+</p>
+
+<p>
+M = 10 × 6² / 8 = 45 kNm
+</p>
+
+<h2>2. Potreban otporni moment presjeka</h2>
+
+<p>
+W = M / fy
+</p>
+
+<p>
+W = 45 × 10⁶ / 235 = 191 489 mm³ ≈ 192 cm³
+</p>
+
+<h2>3. Izbor profila</h2>
+
+<table>
+    <tr>
+        <th>Profil</th>
+        <th>Otporni moment W (cm³)</th>
+    </tr>
+    <tr>
+        <td>IPE 180</td>
+        <td>206</td>
+    </tr>
+    <tr>
+        <td>IPE 200</td>
+        <td>285</td>
+    </tr>
+    <tr>
+        <td>IPE 220</td>
+        <td>364</td>
+    </tr>
+</table>
+
+<p>
+Potrebno: <strong>192 cm³</strong><br>
+Odabrano: <strong>IPE 180</strong>
+</p>
+
+<h2>4. Kontrola nosivosti</h2>
+
+<p>
+MRd = 206 × 10³ × 235
+</p>
+
+<p>
+MRd = 48.4 kNm
+</p>
+
+<div class="result">
+    <strong>Provjera:</strong><br>
+    MEd = 45.0 kNm<br>
+    MRd = 48.4 kNm<br><br>
+
+    ✅ Profil IPE 180 zadovoljava uslov nosivosti na savijanje.
+</div>
+
+<footer>
+    Primjer edukativnog statičkog proračuna prema osnovnim principima Eurokoda 3.
+</footer>
+
+</body>
+</html>
