@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registracija korisnika</title>
+  <!-- Supabase JS Library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .card h2 {
+      margin-bottom: 20px;
+      color: #1a202c;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #4a5568;
+      font-size: 14px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #3182ce;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #3182ce;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #2b6cb0;
+    }
+
+    #message {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+    }
+
+    .success {
+      background-color: #c6f6d5;
+      color: #22543d;
+    }
+
+    .error {
+      background-color: #fed7d7;
+      color: #742a2a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Registracija</h2>
+    <form id="registrationForm">
+      
+      <div class="form-group">
+        <label for="firma">Naziv firme</label>
+        <input type="text" id="firma" name="FIRMA" placeholder="Unesite naziv firme" required>
+      </div>
+
+      <div class="form-group">
+        <label for="mail">E-mail adresa</label>
+        <input type="email" id="mail" name="MAIL" placeholder="primer@domena.com" required>
+      </div>
+
+      <button type="submit" id="submitBtn">Pošalji prijavu</button>
+    </form>
+
+    <div id="message"></div>
+  </div>
+
+  <script>
+    // 1. ZAMIJENITE OVE VRIJEDNOSTI SA VAŠIM SUPABASE PODACIMA:
+    // (Nalaze se u Supabase: Project Settings -> API)
+    const SUPABASE_URL = 'https://VAŠ-PROJECT-ID.supabase.co';
+    const SUPABASE_ANON_KEY = 'VAŠ-ANON-KEY';
+
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const form = document.getElementById('registrationForm');
+    const messageDiv = document.getElementById('message');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Onemogući dugme tokom slanja
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Slanje...';
+      messageDiv.style.display = 'none';
+
+      const firma = document.getElementById('firma').value;
+      const mail = document.getElementById('mail').value;
+
+      // Unos u tabelu "INZENJER:KORISNICI"
+      const { data, error } = await supabase
+        .from('INZENJER:KORISNICI')
+        .insert([
+          { 
+            FIRMA: firma, 
+            MAIL: mail 
+          }
+        ]);
+
+      if (error) {
+        messageDiv.className = 'error';
+        messageDiv.innerText = 'Greška prilikom prijave: ' + error.message;
+      } else {
+        messageDiv.className = 'success';
+        messageDiv.innerText = 'Uspešno ste se registrovali!';
+        form.reset();
+      }
+
+      messageDiv.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.innerText = 'Pošalji prijavu';
+    });
+  </script>
+
+</body>
+</html>
