@@ -51,13 +51,52 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             text-align: center;
         }
+        .profile-section {
+            margin-bottom: 20px;
+        }
+        .profile-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #123b5d;
+            margin-bottom: 10px;
+        }
+        .user-email {
+            font-weight: bold;
+            color: #123b5d;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
         h2 {
             color: #123b5d;
+            margin-top: 10px;
         }
         p {
             color: #666;
-            font-size: 18px;
-            margin-bottom: 30px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .contact-box {
+            background: #f8f9fa;
+            border-left: 4px solid #123b5d;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+            border-radius: 4px;
+        }
+        .contact-box p {
+            margin: 0;
+            font-size: 15px;
+            color: #333;
+        }
+        .contact-box a {
+            color: #123b5d;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .contact-box a:hover {
+            text-decoration: underline;
         }
         .actions {
             margin-top: 30px;
@@ -101,12 +140,24 @@
 </div>
 
 <div class="container">
+    <!-- PROFILNA SLIKA I MAIL KORISNIKA -->
+    <div class="profile-section">
+        <img id="userAvatar" src="https://via.placeholder.com/90" alt="Profilna slika" class="profile-img">
+        <div id="userEmailDisplay" class="user-email">Učitavanje...</div>
+    </div>
+
     <h2 id="welcomeTitle">Dobrodošli na kontrolnu ploču!</h2>
     <p id="welcomeText">Uspješno ste se prijavili u sustav upravljanja projektima i AI automatizacijom.</p>
     
+    <!-- KONTAKT ADRESA PREDUZEĆA -->
+    <div class="contact-box">
+        <p><strong id="contactLabel">Kontakt adresa:</strong> <a href="mailto:halilovicnusret@gmail.com">halilovicnusret@gmail.com</a></p>
+    </div>
+
+    <!-- GUMBOVI ZA POVRATAK I ODJAVU -->
     <div class="actions">
         <a href="index.html" class="btn" id="homeBtn">Nazad na početnu</a>
-        <a href="login.html" class="btn btn-logout" id="logoutBtn">Odjavi se</a>
+        <a href="login.html" class="btn btn-logout" id="logoutBtn" onclick="localStorage.clear()">Odjavi se</a>
     </div>
 </div>
 
@@ -118,6 +169,7 @@ function changeLanguage(lang) {
             subtitle: "System Dashboard",
             welcome: "Welcome to the Dashboard!",
             desc: "You have successfully logged into the project management and AI automation system.",
+            contact: "Contact email:",
             home: "Back to Home",
             logout: "Log Out"
         },
@@ -126,6 +178,7 @@ function changeLanguage(lang) {
             subtitle: "Kontrolna ploča sustava",
             welcome: "Dobrodošli na kontrolnu ploču!",
             desc: "Uspješno ste se prijavili u sustav upravljanja projektima i AI automatizacijom.",
+            contact: "Kontakt adresa:",
             home: "Nazad na početnu",
             logout: "Odjavi se"
         },
@@ -134,6 +187,7 @@ function changeLanguage(lang) {
             subtitle: "System-Dashboard",
             welcome: "Willkommen im Dashboard!",
             desc: "Sie haben sich erfolgreich im Projektmanagement- und KI-Automatisierungssystem angemeldet.",
+            contact: "Kontakt-E-Mail:",
             home: "Zurück zur Startseite",
             logout: "Abmelden"
         },
@@ -142,6 +196,7 @@ function changeLanguage(lang) {
             subtitle: "Tableau de bord du système",
             welcome: "Bienvenue sur le tableau de bord !",
             desc: "Vous vous êtes connecté avec succès au système de gestion de projets et d'automatisation IA.",
+            contact: "E-mail de contact :",
             home: "Retour à l'accueil",
             logout: "Se déconnecter"
         },
@@ -150,6 +205,7 @@ function changeLanguage(lang) {
             subtitle: "Panel de control del sistema",
             welcome: "¡Bienvenido al panel de control!",
             desc: "Has iniciado sesión correctamente en el sistema de gestión de proyectos y automatización de IA.",
+            contact: "Correo de contacto:",
             home: "Volver al inicio",
             logout: "Cerrar sesión"
         }
@@ -159,12 +215,29 @@ function changeLanguage(lang) {
     document.getElementById("subtitle").innerHTML = text[lang].subtitle;
     document.getElementById("welcomeTitle").innerHTML = text[lang].welcome;
     document.getElementById("welcomeText").innerHTML = text[lang].desc;
+    document.getElementById("contactLabel").innerHTML = text[lang].contact;
     document.getElementById("homeBtn").innerHTML = text[lang].home;
     document.getElementById("logoutBtn").innerHTML = text[lang].logout;
 }
 
 window.onload = function() {
-    changeLanguage("bs"); // Početni jezik na dashboardu
+    changeLanguage("bs"); // Početni jezik
+
+    // Učitavanje maila i opcionalne profilne slike iz localStorage-a (spremljeno pri prijavi)
+    const userData = localStorage.getItem('korisnik');
+    if (userData) {
+        const user = JSON.parse(userData);
+        // Postavljamo mail korisnika koji se prijavio
+        document.getElementById("userEmailDisplay").innerText = user.MAIL || user.email || "Korisnik";
+        
+        // Ako u bazi imaš polje za sliku (npr. user.SLIKA ili user.avatar), može se ovdje učitati, 
+        // inače ostaje defaultna/placeholder slika
+        if (user.SLIKA || user.avatar) {
+            document.getElementById("userAvatar").src = user.SLIKA || user.avatar;
+        }
+    } else {
+        document.getElementById("userEmailDisplay").innerText = "Niste prijavljeni";
+    }
 };
 </script>
 
