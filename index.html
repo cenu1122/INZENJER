@@ -1,651 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="bs">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>NH AI Automation</title>
-<style>
-
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f4f6f8;
-    color:#333;
-}
-
-
-header{
-
-    background:#123b5d;
-    color:white;
-    padding:35px;
-    text-align:center;
-
-}
-
-
-header h1{
-    font-size:45px;
-    margin:0;
-}
-
-
-
-nav{
-
-    background:#0b263d;
-    padding:15px;
-    text-align:center;
-
-}
-
-
-nav a{
-
-    color:white;
-    text-decoration:none;
-    margin:15px;
-    font-weight:bold;
-
-}
-
-
-
-.lang{
-
-    text-align:center;
-    padding:15px;
-    background:white;
-
-}
-
-
-button{
-
-    padding:10px 15px;
-    margin:5px;
-    border:none;
-    background:#123b5d;
-    color:white;
-    cursor:pointer;
-    border-radius:5px;
-
-}
-
-
-button:hover{
-
-    background:#1d6fa5;
-
-}
-
-
-
-.container{
-
-    max-width:1200px;
-    margin:auto;
-    padding:30px;
-
-}
-
-
-
-.hero{
-
-    background:white;
-    padding:60px 30px;
-    text-align:center;
-
-}
-
-
-
-.hero h2{
-
-    color:#123b5d;
-    font-size:35px;
-
-}
-
-
-
-.btn{
-
-    display:inline-block;
-    padding:15px 25px;
-    background:#123b5d;
-    color:white;
-    text-decoration:none;
-    border-radius:5px;
-    margin-top:20px;
-
-}
-
-
-
-section{
-
-    background:white;
-    margin:30px 0;
-    padding:30px;
-
-}
-
-
-
-h2{
-
-    color:#123b5d;
-    border-bottom:3px solid #123b5d;
-    padding-bottom:10px;
-
-}
-
-
-
-.cards{
-
-    display:flex;
-    flex-wrap:wrap;
-    gap:20px;
-
-}
-
-
-
-.card{
-
-    flex:1;
-    min-width:250px;
-    background:#f0f3f5;
-    padding:20px;
-    border-left:5px solid #123b5d;
-
-}
-
-
-
-.review{
-
-    background:#eef6fb;
-    padding:20px;
-    margin:15px 0;
-    border-radius:5px;
-
-}
-
-
-
-footer{
-
-    background:#123b5d;
-    color:white;
-    text-align:center;
-    padding:20px;
-
-}
-
-
-
-</style>
-
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registracija korisnika</title>
+  <!-- Supabase JS Library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .card h2 {
+      margin-bottom: 20px;
+      color: #1a202c;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #4a5568;
+      font-size: 14px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #3182ce;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #3182ce;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #2b6cb0;
+    }
+
+    #message {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+    }
+
+    .success {
+      background-color: #c6f6d5;
+      color: #22543d;
+    }
+
+    .error {
+      background-color: #fed7d7;
+      color: #742a2a;
+    }
+  </style>
 </head>
-
-
-
 <body>
 
-
-
-<header>
-
-<h1 id="company">
-NH AI Automation
-</h1>
-
-<p id="subtitle">
-AI automation, engineering solutions and industrial innovation
-</p>
-
-</header>
-
-
-
-
-<div class="lang">
-
-<button onclick="changeLanguage('en')">🇬🇧 English</button>
-<button onclick="changeLanguage('bs')">🇧🇦 Bosanski</button>
-<button onclick="changeLanguage('de')">🇩🇪 Deutsch</button>
-<button onclick="changeLanguage('fr')">🇫🇷 Français</button>
-<button onclick="changeLanguage('es')">🇪🇸 Español</button>
-
-</div>
-
-
-
-
-<nav>
-
-<a href="#about" id="nav1">About Us</a>
-<a href="#why" id="nav2">Why Us</a>
-<a href="#services" id="nav3">Services</a>
-<a href="#projects" id="nav4">Projects</a>
-<a href="#reviews" id="nav5">Reviews</a>
-<a href="#contact" id="nav6">Contact</a>
-<a href="#design" id="navDesign">Project Design</a>
-    
-
-
-</nav>
-
-
-
-
-
-<div class="container">
-
-
-
-<div class="hero">
-
-<h2 id="heroTitle">
-Designing and manufacturing complete industrial solutions
-</h2>
-
-
-<p id="heroText">
-
-Professional mechanical engineering,
-machine design and production.
-
-</p>
-
-
-<a class="btn" href="greda.html" id="projectBtn">
-
-View Steel Beam Eurocode 3 Project
-
-</a>
-
-
-</div>
-
-
-
-
-
-
-
-<section id="about">
-
-<h2 id="aboutTitle">
-About Us
-</h2>
-
-
-<p id="aboutText">
-
-NH AI Automation is a company specialized in
-AI automation, mechanical engineering,
-machine design, industrial solutions and technical development.
-
-We provide complete solutions from concept,
-design and calculation to manufacturing.
-
-</p>
-
-</section>
-
-
-
-
-
-
-
-<section id="why">
-
-<h2 id="whyTitle">
-Why Choose Us
-</h2>
-
-
-<div class="cards">
-
-
-<div class="card">
-<h3>Expertise</h3>
-<p>
-Professional engineering approach and modern design methods.
-</p>
-</div>
-
-
-<div class="card">
-<h3>Quality</h3>
-<p>
-Reliable solutions with focus on precision and durability.
-</p>
-</div>
-
-
-<div class="card">
-<h3>Complete Solutions</h3>
-<p>
-From idea to finished machine or industrial system.
-</p>
-</div>
-
-
-</div>
-
-</section>
-
-
-
-
-
-
-
-
-<!-- SERVICES SECTION -->
-<!-- SERVICES SECTION -->
-<section id="services">
-    <h2 id="servicesTitle">Our Services</h2>
-    <div class="cards">
-        <div class="card">
-            <h3>Machine Design</h3>
-            <p>Design and development of machines and mechanical systems.</p>
-        </div>
-        <div class="card">
-            <h3>Machine Manufacturing</h3>
-            <p>Production of complete machines and industrial equipment.</p>
-        </div>
-        <div class="card">
-            <h3>Engineering Calculations</h3>
-            <p>Structural calculations and technical documentation.</p>
-        </div>
-    </div>
-</section>
-
-<!-- DESIGN SECTION -->
-<section id="design">
-    <h2>Project Design</h2>
-    <p>Engineering design examples and technical projects developed by NH AI Automation.</p>
-    <div class="cards">
-        <div class="card">
-            <h3>Steel Beam Design - Eurocode 3</h3>
-            <p>Static calculation and verification of a steel beam according to Eurocode 3.</p>
-            <a class="btn" href="#" onclick="projectInProgress()">Open Project</a>
-        </div>
-    </div>
-</section>
-
-<!-- PROJECTS SECTION -->
-<section id="projects">
-    <h2>Projects</h2>
-    <div class="cards">
-        <div class="card">
-            <h3>Steel Beam Eurocode 3</h3>
-            <p>Static calculation and verification according to Eurocode 3.</p>
-            <a class="btn" href="#" onclick="projectInProgress()">Open Project</a>
-        </div>
-        <div class="card">
-            <h3>Hydraulic Cylinder Design</h3>
-            <p>Mechanical design and engineering calculations.</p>
-            <a class="btn" href="#" onclick="projectInProgress()">Open Project</a>
-        </div>
-        <div class="card">
-            <h3>Hydraulic Press</h3>
-            <p>Industrial press design and production project.</p>
-            <a class="btn" href="#" onclick="projectInProgress()">Open Project</a>
-        </div>
-        <div class="card">
-            <h3>Automatic Profile Cutting Machine</h3>
-            <p>Automation and manufacturing solution.</p>
-            <a class="btn" href="#" onclick="projectInProgress()">Open Project</a>
-        </div>
-        <div class="card">
-            <h3>Reducer Gearbox</h3>
-            <p>Mechanical transmission and gearbox design.</p>
-            <a class="btn" href="#" onclick="projectInProgress()">Open Project</a>
-        </div>
-        <div class="card">
-            <h3>Disabled Person Lifting Mechanism</h3>
-            <p>Special engineering solution for accessibility.</p>
-            <a class="btn" href="#" onclick="projectInProgress()">Open Project</a>
-        </div>
-    </div>
-</section>
-
-
-<section id="reviews">
-
-<h2>
-References & Reviews
-</h2>
-
-
-<div class="review">
-
-★★★★★
-
-<br>
-
-"Professional approach, quality work and excellent communication."
-
-</div>
-
-
-<div class="review">
-
-★★★★★
-
-<br>
-
-"Complete engineering solution from idea to final product."
-
-</div>
-
-
-
-<div class="review">
-
-★★★★★
-
-<br>
-
-"Reliable partner for machine design and manufacturing."
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-<section id="contact">
-
-<h2>
-Contact
-</h2>
-
-
-<p>
-Email: info@indec-engineering.com
-</p>
-
-
-<p>
-Phone: +387 XX XXX XXX
-</p>
-
-
-<p>
-Bosnia and Herzegovina
-</p>
-
-
-</section>
-
-
-
-
-
-</div>
-
-
-
-
-
-<footer>
-
-NH AI Automation © 2026
-    
-</footer>
-
-
-
-
-
-
-
-<script>
-
-
-function changeLanguage(lang){
-
-const text = {
-
-en:{
-company:"NH AI Automation",
-subtitle:"AI automation, engineering solutions and industrial innovation",
-about:"About Us",
-why:"Why Choose Us",
-services:"Our Services",
-projects:"Projects",
-reviews:"References & Reviews",
-contact:"Contact",
-project:"View Steel Beam Eurocode 3 Project"
-},
-
-bs:{
-company:"NH AI Automation",
-subtitle:"AI automatizacija, inženjerska rješenja i industrijske inovacije",
-about:"O nama",
-why:"Zašto mi",
-services:"Naše usluge",
-projects:"Projekti",
-reviews:"Reference i recenzije",
-contact:"Kontakt",
-project:"Pogledaj projekat čelične grede"
-},
-
-de:{
-company:"NH AI Automation",
-subtitle:"KI-Automatisierung, Ingenieurlösungen und industrielle Innovation",
-about:"Über uns",
-why:"Warum wir",
-services:"Unsere Dienstleistungen",
-projects:"Projekte",
-reviews:"Referenzen und Bewertungen",
-contact:"Kontakt",
-project:"Stahlträger Eurocode 3 Projekt ansehen"
-},
-
-fr:{
-company:"NH AI Automation",
-subtitle:"Automatisation IA, solutions d'ingénierie et innovation industrielle",
-about:"À propos de nous",
-why:"Pourquoi nous",
-services:"Nos services",
-projects:"Projets",
-reviews:"Références et avis",
-contact:"Contact",
-project:"Voir le projet de poutre en acier Eurocode 3"
-},
-
-es:{
-company:"NH AI Automation",
-subtitle:"Automatización IA, soluciones de ingeniería e innovación industrial",
-about:"Sobre nosotros",
-why:"Por qué nosotros",
-services:"Nuestros servicios",
-projects:"Proyectos",
-reviews:"Referencias y opiniones",
-contact:"Contacto",
-project:"Ver proyecto de viga de acero Eurocode 3"
-}
-
-};
-
-
-document.getElementById("company").innerHTML=text[lang].company;
-document.getElementById("subtitle").innerHTML=text[lang].subtitle;
-
-document.getElementById("aboutTitle").innerHTML=text[lang].about;
-document.getElementById("whyTitle").innerHTML=text[lang].why;
-document.getElementById("servicesTitle").innerHTML=text[lang].services;
-
-document.getElementById("nav4").innerHTML=text[lang].projects;
-document.getElementById("nav5").innerHTML=text[lang].reviews;
-document.getElementById("nav6").innerHTML=text[lang].contact;
-
-document.getElementById("projectBtn").innerHTML=text[lang].project;
-    document.getElementById("heroTitle").innerHTML =
-{
-en:"Designing and manufacturing complete industrial solutions",
-bs:"Projektovanje i izrada kompletnih industrijskih rješenja",
-de:"Entwicklung und Herstellung kompletter industrieller Lösungen",
-fr:"Conception et fabrication de solutions industrielles complètes",
-es:"Diseño y fabricación de soluciones industriales completas"
-}[lang];
-
-
-document.getElementById("heroText").innerHTML =
-{
-en:"Professional mechanical engineering, AI automation, machine design and production.",
-bs:"Profesionalno mašinsko inženjerstvo, AI automatizacija, projektovanje i proizvodnja.",
-de:"Professioneller Maschinenbau, KI-Automatisierung, Konstruktion und Fertigung.",
-fr:"Ingénierie mécanique professionnelle, automatisation IA, conception et production.",
-es:"Ingeniería mecánica profesional, automatización IA, diseño y producción."
-}[lang];
-    
-
-}
-
-
-window.onload = function(){
-    changeLanguage("en");
-};
-  function projectInProgress(){
-
-alert(
-"Project currently under development.\n\n" +
-"Engineering calculations, technical drawings and documentation are being prepared.\n\n" +
-"The complete project will be available within the next few days."
-);
-
-}  
-</script>
-
-
+  <div class="card">
+    <h2>Registracija</h2>
+    <form id="registrationForm">
+      
+      <div class="form-group">
+        <label for="firma">Naziv firme</label>
+        <input type="text" id="firma" name="FIRMA" placeholder="Unesite naziv firme" required>
+      </div>
+
+      <div class="form-group">
+        <label for="mail">E-mail adresa</label>
+        <input type="email" id="mail" name="MAIL" placeholder="primer@domena.com" required>
+      </div>
+
+      <button type="submit" id="submitBtn">Pošalji prijavu</button>
+    </form>
+
+    <div id="message"></div>
+  </div>
+
+  <script>
+    // 1. ZAMIJENITE OVE VRIJEDNOSTI SA VAŠIM SUPABASE PODACIMA:
+    // (Nalaze se u Supabase: Project Settings -> API)
+    const SUPABASE_URL = 'https://VAŠ-PROJECT-ID.supabase.co';
+    const SUPABASE_ANON_KEY = 'VAŠ-ANON-KEY';
+
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const form = document.getElementById('registrationForm');
+    const messageDiv = document.getElementById('message');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Onemogući dugme tokom slanja
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Slanje...';
+      messageDiv.style.display = 'none';
+
+      const firma = document.getElementById('firma').value;
+      const mail = document.getElementById('mail').value;
+
+      // Unos u tabelu "INZENJER:KORISNICI"
+      const { data, error } = await supabase
+        .from('INZENJER:KORISNICI')
+        .insert([
+          { 
+            FIRMA: firma, 
+            MAIL: mail 
+          }
+        ]);
+
+      if (error) {
+        messageDiv.className = 'error';
+        messageDiv.innerText = 'Greška prilikom prijave: ' + error.message;
+      } else {
+        messageDiv.className = 'success';
+        messageDiv.innerText = 'Uspešno ste se registrovali!';
+        form.reset();
+      }
+
+      messageDiv.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.innerText = 'Pošalji prijavu';
+    });
+  </script>
 
 </body>
-
 </html>
