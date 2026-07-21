@@ -125,8 +125,8 @@
   <script>
     // 1. ZAMIJENITE OVE VRIJEDNOSTI SA VAŠIM SUPABASE PODACIMA:
     // (Nalaze se u Supabase: Project Settings -> API)
-    const SUPABASE_URL = 'https://VAŠ-PROJECT-ID.supabase.co';
-    const SUPABASE_ANON_KEY = 'VAŠ-ANON-KEY';
+    const SUPABASE_URL = 'https://mralougbaysmczxgrhqd.supabase.co/rest/v1/';
+    const SUPABASE_ANON_KEY = 'sb_publishable_2x7QMhuyTvD6iYmdw2UtCw_mJ3PqgO5';
 
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -145,15 +145,13 @@
       const firma = document.getElementById('firma').value;
       const mail = document.getElementById('mail').value;
 
-      // Unos u tabelu "INZENJER:KORISNICI"
-      const { data, error } = await supabase
-        .from('INZENJER:KORISNICI')
-        .insert([
-          { 
-            FIRMA: firma, 
-            MAIL: mail 
-          }
-        ]);
+    // Poziv Supabase Edge Funkcije INZENEJR_REGISTRACIJA
+const { data, error } = await supabase.functions.invoke('INZENEJR_REGISTRACIJA', {
+  body: { 
+    FIRMA: firma, 
+    MAIL: mail 
+  }
+});
 
       if (error) {
         messageDiv.className = 'error';
