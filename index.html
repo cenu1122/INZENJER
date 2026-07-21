@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registracija korisnika</title>
-  <!-- Supabase JS Library -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <title>Portal</title>
   <style>
     * {
       box-sizing: border-box;
@@ -20,154 +18,143 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      padding: 20px;
     }
 
     .card {
       background: #ffffff;
-      padding: 30px;
+      padding: 40px 30px;
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
       width: 100%;
-      max-width: 420px;
-    }
-
-    .card h2 {
-      margin-bottom: 20px;
-      color: #1a202c;
+      max-width: 400px;
       text-align: center;
     }
 
-    .form-group {
-      margin-bottom: 18px;
+    /* Birač jezika */
+    .lang-picker {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 25px;
     }
 
-    .form-group label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
-      color: #4a5568;
-      font-size: 14px;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px;
+    .lang-picker select {
+      padding: 6px 10px;
+      border-radius: 6px;
       border: 1px solid #cbd5e0;
-      border-radius: 6px;
-      font-size: 15px;
-      transition: border-color 0.2s;
-    }
-
-    .form-group input:focus {
+      background: #f8fafc;
+      font-weight: 600;
+      cursor: pointer;
       outline: none;
-      border-color: #3182ce;
     }
 
-    button {
+    .title {
+      margin-bottom: 30px;
+      color: #1a202c;
+      font-size: 22px;
+    }
+
+    /* Kontejner za dugmad */
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .btn {
+      display: block;
       width: 100%;
-      padding: 12px;
-      background-color: #3182ce;
-      color: white;
-      border: none;
-      border-radius: 6px;
+      padding: 14px;
+      border-radius: 8px;
       font-size: 16px;
       font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.2s;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 
-    button:hover {
+    /* Registracija - Primarno dugme */
+    .btn-register {
+      background-color: #3182ce;
+      color: white;
+      border: 1px solid #3182ce;
+    }
+
+    .btn-register:hover {
       background-color: #2b6cb0;
     }
 
-    #message {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 6px;
-      font-size: 14px;
-      text-align: center;
-      display: none;
+    /* Prijava - Sekundarno dugme */
+    .btn-login {
+      background-color: #ffffff;
+      color: #3182ce;
+      border: 2px solid #3182ce;
     }
 
-    .success {
-      background-color: #c6f6d5;
-      color: #22543d;
-    }
-
-    .error {
-      background-color: #fed7d7;
-      color: #742a2a;
+    .btn-login:hover {
+      background-color: #ebf8ff;
     }
   </style>
 </head>
 <body>
 
   <div class="card">
-    <h2>Registracija</h2>
-    <form id="registrationForm">
-      
-      <div class="form-group">
-        <label for="firma">Naziv firme</label>
-        <input type="text" id="firma" name="FIRMA" placeholder="Unesite naziv firme" required>
-      </div>
+    <!-- Izbor jezika -->
+    <div class="lang-picker">
+      <select id="langSelect" onchange="changeLanguage(this.value)">
+        <option value="bs">🇧🇦 Bosanski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+      </select>
+    </div>
 
-      <div class="form-group">
-        <label for="mail">E-mail adresa</label>
-        <input type="email" id="mail" name="MAIL" placeholder="primer@domena.com" required>
-      </div>
+    <h2 class="title" id="welcomeTitle">Dobrodošli</h2>
 
-      <button type="submit" id="submitBtn">Pošalji prijavu</button>
-    </form>
-
-    <div id="message"></div>
+    <!-- Linkovi prilagođeni nazivima vaših fajlova sa velikim slovima -->
+    <div class="button-group">
+      <a href="REGISTRACIJA.html" class="btn btn-register" id="btnRegister">Registracija</a>
+      <a href="LOGIN.html" class="btn btn-login" id="btnLogin">Prijava</a>
+    </div>
   </div>
 
   <script>
-    // 1. ZAMIJENITE OVE VRIJEDNOSTI SA VAŠIM SUPABASE PODACIMA:
-    // (Nalaze se u Supabase: Project Settings -> API)
-    const SUPABASE_URL = 'https://VAŠ-PROJECT-ID.supabase.co';
-    const SUPABASE_ANON_KEY = 'VAŠ-ANON-KEY';
-
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    const form = document.getElementById('registrationForm');
-    const messageDiv = document.getElementById('message');
-    const submitBtn = document.getElementById('submitBtn');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      // Onemogući dugme tokom slanja
-      submitBtn.disabled = true;
-      submitBtn.innerText = 'Slanje...';
-      messageDiv.style.display = 'none';
-
-      const firma = document.getElementById('firma').value;
-      const mail = document.getElementById('mail').value;
-
-      // Unos u tabelu "INZENJER:KORISNICI"
-      const { data, error } = await supabase
-        .from('INZENJER:KORISNICI')
-        .insert([
-          { 
-            FIRMA: firma, 
-            MAIL: mail 
-          }
-        ]);
-
-      if (error) {
-        messageDiv.className = 'error';
-        messageDiv.innerText = 'Greška prilikom prijave: ' + error.message;
-      } else {
-        messageDiv.className = 'success';
-        messageDiv.innerText = 'Uspešno ste se registrovali!';
-        form.reset();
+    // Rječnik sa prevodima
+    const translations = {
+      bs: {
+        title: "Dobrodošli",
+        btnRegister: "Registracija",
+        btnLogin: "Prijava"
+      },
+      en: {
+        title: "Welcome",
+        btnRegister: "Register",
+        btnLogin: "Login"
+      },
+      de: {
+        title: "Willkommen",
+        btnRegister: "Registrieren",
+        btnLogin: "Anmelden"
+      },
+      fr: {
+        title: "Bienvenue",
+        btnRegister: "Inscription",
+        btnLogin: "Connexion"
+      },
+      es: {
+        title: "Bienvenido",
+        btnRegister: "Registro",
+        btnLogin: "Iniciar sesión"
       }
+    };
 
-      messageDiv.style.display = 'block';
-      submitBtn.disabled = false;
-      submitBtn.innerText = 'Pošalji prijavu';
-    });
+    function changeLanguage(lang) {
+      const t = translations[lang];
+      document.getElementById('welcomeTitle').innerText = t.title;
+      document.getElementById('btnRegister').innerText = t.btnRegister;
+      document.getElementById('btnLogin').innerText = t.btnLogin;
+    }
   </script>
 
 </body>
