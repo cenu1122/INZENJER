@@ -116,6 +116,11 @@
         <input type="email" id="mail" name="MAIL" placeholder="primer@domena.com" required>
       </div>
 
+      <div class="form-group">
+        <label for="lozinka">Lozinka</label>
+        <input type="password" id="lozinka" name="LOZINKA" placeholder="Unesite vaša lozinku" required>
+      </div>
+
       <button type="submit" id="submitBtn">Pošalji prijavu</button>
     </form>
 
@@ -123,9 +128,7 @@
   </div>
 
   <script>
-    // 1. ZAMIJENITE OVE VRIJEDNOSTI SA VAŠIM SUPABASE PODACIMA:
-    // (Nalaze se u Supabase: Project Settings -> API)
-    const SUPABASE_URL = 'https://mralougbaysmczxgrhqd.supabase.co/rest/v1/';
+    const SUPABASE_URL = 'https://mralougbaysmczxgrhqd.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_2x7QMhuyTvD6iYmdw2UtCw_mJ3PqgO5';
 
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -144,14 +147,16 @@
 
       const firma = document.getElementById('firma').value;
       const mail = document.getElementById('mail').value;
+      const lozinka = document.getElementById('lozinka').value;
 
-    // Poziv Supabase Edge Funkcije INZENEJR_REGISTRACIJA
-const { data, error } = await supabase.functions.invoke('INZENEJR_REGISTRACIJA', {
-  body: { 
-    FIRMA: firma, 
-    MAIL: mail 
-  }
-});
+      // Poziv Supabase Edge Funkcije INZENEJR_REGISTRACIJA sa lozinkom u body-ju
+      const { data, error } = await supabase.functions.invoke('INZENEJR_REGISTRACIJA', {
+        body: { 
+          FIRMA: firma, 
+          MAIL: mail,
+          LOZINKA: lozinka
+        }
+      });
 
       if (error) {
         messageDiv.className = 'error';
